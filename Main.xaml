@@ -452,9 +452,9 @@
             <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="TransactionItem IsNot Nothing" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_2" />
           </Transition.Condition>
           <Transition.To>
-            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Description: The responsibility of the transaction is choosed and then gets processed using the flowchart which dictates how the item is processed based on the run type.&#xA;&#xA;Pre-Condition:  Transaction item must have been picked up from the queue and be ready to be processed.&#xA;&#xA;Post-Action: &#xA;-&gt; The transaction will be processed successfully with no issues&#xA;-&gt; A business error might occur which means that the transaction will be retired and a new transaction is taken for process. &#xA;-&gt; System error might occur which will kill the process and will invoke the Init Workflow." DisplayName="Process The Queue Item" sap:VirtualizedContainerService.HintSize="484,1174" sap2010:WorkflowViewState.IdRef="State_3">
+            <State x:Name="__ReferenceID2" sap2010:Annotation.AnnotationText="Description: The responsibility of the transaction is choosed and then gets processed using the flowchart which dictates how the item is processed based on the run type.&#xA;&#xA;Pre-Condition:  Transaction item must have been picked up from the queue and be ready to be processed.&#xA;&#xA;Post-Action: &#xA;-&gt; The transaction will be processed successfully with no issues&#xA;-&gt; A business error might occur which means that the transaction will be retired and a new transaction is taken for process. &#xA;-&gt; System error might occur which will kill the process and will invoke the Init Workflow." DisplayName="Process The Queue Item" sap:VirtualizedContainerService.HintSize="428,280" sap2010:WorkflowViewState.IdRef="State_3">
               <State.Entry>
-                <TryCatch DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="438,553" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                <TryCatch DisplayName="Process Transaction" sap:VirtualizedContainerService.HintSize="438,652" sap2010:WorkflowViewState.IdRef="TryCatch_1">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -462,12 +462,13 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <TryCatch.Try>
-                    <Sequence DisplayName="Process the current TransactionItem" sap:VirtualizedContainerService.HintSize="376,304" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                    <Sequence DisplayName="Process the current TransactionItem" sap:VirtualizedContainerService.HintSize="376,403" sap2010:WorkflowViewState.IdRef="Sequence_2">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
+                      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;hello&quot;]" />
                       <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                         <Assign.To>
                           <OutArgument x:TypeArguments="ui:BusinessRuleException">[BusinessRuleException]</OutArgument>
