@@ -1,0 +1,244 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="OracleValidation_SubmitAutorateRequest"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_OpenFormFunctionHotKey" Type="InArgument(x:String)" />
+    <x:Property Name="in_ElementExistsTimeout" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_FormFunctionOpenRunRequest" Type="InArgument(x:String)" />
+    <x:Property Name="in_RequestRunName" Type="InArgument(x:String)" />
+    <x:Property Name="in_OracleJavaSelectorTitle" Type="InArgument(x:String)" />
+    <x:Property Name="in_FormFunctionSelectorName" Type="InArgument(x:String)" />
+    <x:Property Name="in_SubmitANewRequestPopUpSelectorTitle" Type="InArgument(x:String)" />
+    <x:Property Name="in_SubmitRequestSelectorTitle" Type="InArgument(x:String)" />
+    <x:Property Name="in_RequestsSelectorTitle" Type="InArgument(x:String)" />
+    <x:Property Name="in_SwitchResponsibilitySelectorTitle" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>OracleValidation_SubmitAutorateRequest_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="DESCRIPTION: An AutoRate request is submitted into oracle java application.&#xA;&#xA;PRE-CONDITION: Oracle Java must have been opened and a queueitem must have been picked up from the queue.&#xA;&#xA;POST-ACTION: The validation request is submitted and searched for approval." DisplayName="OracleValidation_SubmitAutorateRequest" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="FormFunctionExists" />
+      <Variable x:TypeArguments="x:Boolean" Name="SubmitNewRequestPopUpExists" />
+    </Sequence.Variables>
+    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'Oracle Java application'" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="f5200656ac6a5317e841127789857084" Selector="[&quot;&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' title='&quot;+in_OracleJavaSelectorTitle+&quot;' /&gt;&quot;]">
+      <ui:WindowScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_1">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="RequestWindowExists" />
+            </Sequence.Variables>
+            <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey (Open Form function)" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="[in_OpenFormFunctionHotKey]" KeyModifiers="Ctrl" SendWindowMessages="False" SpecialKey="False">
+              <ui:SendHotkey.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" WaitForReady="NONE" />
+              </ui:SendHotkey.Target>
+            </ui:SendHotkey>
+            <ui:UiElementExists DisplayName="Element Exists 'Form function'" Exists="[FormFunctionExists]" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+              <ui:UiElementExists.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="ed0f901178839d1c5c470effa397d54d" Selector="[&quot;&lt;java name='&quot;+in_SwitchResponsibilitySelectorTitle+&quot;' role='internal frame' /&gt;&lt;java name='&quot;+in_FormFunctionSelectorName+&quot;' role='internal frame' /&gt;&quot;]" TimeoutMS="[in_ElementExistsTimeout]" WaitForReady="NONE" />
+              </ui:UiElementExists.Target>
+            </ui:UiElementExists>
+            <If Condition="[FormFunctionExists]" DisplayName="If Form function has opened" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Else>
+                <Throw DisplayName="Throw System exception (Form function has not opened)" Exception="[new System.Exception(&quot;Form function screen has not popped up in sufficient time.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
+              </If.Else>
+            </If>
+            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'Find'" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="False" Text="[in_FormFunctionOpenRunRequest]">
+              <ui:TypeInto.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="45a1fc807146c9d90549d60178612754" Selector="[&quot;&lt;java name='&quot;+in_SwitchResponsibilitySelectorTitle+&quot;' role='internal frame' /&gt;&lt;java name='&quot;+in_FormFunctionSelectorName+&quot;' role='internal frame' /&gt;&lt;java name='*Find' role='text' /&gt;&quot;]" WaitForReady="NONE" />
+              </ui:TypeInto.Target>
+            </ui:TypeInto>
+            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Find'" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b42158acf0909a8adaf480caa1bb98a8" Selector="[&quot;&lt;java name='&quot;+in_SwitchResponsibilitySelectorTitle+&quot;' role='internal frame' /&gt;&lt;java name='&quot;+in_FormFunctionSelectorName+&quot;' role='internal frame' /&gt;&lt;java name='Find ALT F' role='push button' /&gt;&quot;]" WaitForReady="NONE" />
+              </ui:Click.Target>
+            </ui:Click>
+            <ui:UiElementExists DisplayName="Element Exists 'Submit new request pop up'" Exists="[SubmitNewRequestPopUpExists]" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+              <ui:UiElementExists.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="3c41005a41cbba7114215f9b4f0c3ddb" Selector="[&quot;&lt;java name='&quot;+in_SubmitANewRequestPopUpSelectorTitle+&quot;' role='internal frame' /&gt;&quot;]" TimeoutMS="[in_ElementExistsTimeout]" WaitForReady="NONE" />
+              </ui:UiElementExists.Target>
+            </ui:UiElementExists>
+            <If Condition="[SubmitNewRequestPopUpExists]" DisplayName="If submit new request pop up exists" sap2010:WorkflowViewState.IdRef="If_2">
+              <If.Else>
+                <Throw DisplayName="Throw System Exception (Submit request pop up not found)" Exception="[new System.Exception(&quot;Submit a new request pop up has not been found&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_2" />
+              </If.Else>
+            </If>
+            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'OK'" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="da037b2ae89a78933c10ffafb54e071f" Selector="[&quot;&lt;java name='&quot;+in_SubmitANewRequestPopUpSelectorTitle+&quot;' role='internal frame' /&gt;&lt;java name='OK alt O' role='push button' /&gt;&quot;]" WaitForReady="NONE" />
+              </ui:Click.Target>
+            </ui:Click>
+            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'Name for new Request'" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="False" Text="[in_RequestRunName]">
+              <ui:TypeInto.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="eb9c39dbae11b09a5226d8999fb2a2d0" Selector="[&quot;&lt;java name='&quot;+in_SubmitRequestSelectorTitle+&quot;' role='internal frame' /&gt;&lt;java name='Name RequiredList of Values' role='text' /&gt;&quot;]" WaitForReady="NONE" />
+              </ui:TypeInto.Target>
+            </ui:TypeInto>
+            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_DOUBLE" DisplayName="Double Click" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" Selector="[&quot;&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' title='&quot;+in_OracleJavaSelectorTitle+&quot;' /&gt;&lt;java name='&quot;+in_SubmitRequestSelectorTitle+&quot;' role='internal frame' /&gt;&lt;java name='Submit*' role='push button' /&gt;&quot;]" WaitForReady="COMPLETE" />
+              </ui:Click.Target>
+            </ui:Click>
+            <ui:UiElementExists DisplayName="Element Exists 'Request window exists'" Exists="[RequestWindowExists]" sap2010:WorkflowViewState.IdRef="UiElementExists_3">
+              <ui:UiElementExists.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="7c165087f397caa7d4b49ddcd1e8681a" Selector="[&quot;&lt;java name='&quot;+in_RequestsSelectorTitle+&quot;' role='internal frame' /&gt;&quot;]" TimeoutMS="[in_ElementExistsTimeout]" WaitForReady="COMPLETE" />
+              </ui:UiElementExists.Target>
+            </ui:UiElementExists>
+            <If Condition="[RequestWindowExists]" DisplayName="If Request has been submitted" sap2010:WorkflowViewState.IdRef="If_3">
+              <If.Then>
+                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Refresh Data'" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="00625154e883bb4bb8646932e3dbe30f" Selector="[&quot;&lt;wnd app='jp2launcher.exe' cls='SunAwtFrame' title='&quot;+in_OracleJavaSelectorTitle+&quot;' /&gt;&lt;java name='&quot;+in_RequestsSelectorTitle+&quot;' role='internal frame' /&gt;&lt;java name='Refresh Data alt R' role='push button' /&gt;&quot;]" WaitForReady="COMPLETE" />
+                  </ui:Click.Target>
+                </ui:Click>
+              </If.Then>
+              <If.Else>
+                <Throw DisplayName="Throw System Exception (Request has not been submitted)" Exception="[new System.Exception(&quot;The request window has not popped up in sufficient time, request has not been submitted.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_3" />
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:WindowScope.Body>
+    </ui:WindowScope>
+    <sads:DebugSymbol.Symbol>d31DOlxVc2Vyc1xwMnBib3QyLmRldnVpcFxEb2N1bWVudHNcVWlQYXRoXEFQX0JvdF9QMV9QZXJmb3JtZXJcT3JhY2xlSmF2YVZhbGlkYXRpb25cT3JhY2xlVmFsaWRhdGlvbl9TdWJtaXRBdXRvcmF0ZVJlcXVlc3QueGFtbCxPA84BDgIBAVQFzAEWAgECVJgCVI4DAgFGWgvJARYCAQNeDWIdAgFDYw1nIgIBO2gNbBICATZtDXEbAgEwcg2AARgCASyBAQ2FASICASWGAQ2KARICASCLAQ2ZARgCAR2aAQ2eARsCARifAQ2tARgCARSuAQ2yASICAQ2zAQ3IARICAQRegQJengICAURliwFlzgICAUBl2QJl9AICAT5jVWNrAgE8aBtoMQIBN2oRavMBAgE5b6ABb4oDAgEzbZ0Cbb4CAgExfqABfpYDAgEtgwGLAYMB+wECASqDAYYCgwGhAgIBKIEBYYEBgAECASaGARuGAToCASGIARGIAeoBAgEjlwGgAZcBwQICAR6cAaABnAHEAgIBG5oBrQKaAcICAgEZqwFnqwHkAgIBFbABiwGwAe0BAgESsAH4AbABkwICARCuAV2uAXQCAQ6zARuzATICAQW1ARHDARwCAQnGARHGAZMCAgEHamZqxgECATqIAWmIAb0BAgEkwQGkAcEBpwMCAQrGAWjGAeYBAgEI</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="SendHotkey_1" sap:VirtualizedContainerService.HintSize="539.2,117.6" />
+      <sap2010:ViewStateData Id="UiElementExists_1" sap:VirtualizedContainerService.HintSize="539.2,107.2" />
+      <sap2010:ViewStateData Id="Throw_1" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="539.2,209.6" />
+      <sap2010:ViewStateData Id="TypeInto_1" sap:VirtualizedContainerService.HintSize="539.2,135.2" />
+      <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="539.2,107.2" />
+      <sap2010:ViewStateData Id="UiElementExists_2" sap:VirtualizedContainerService.HintSize="539.2,107.2" />
+      <sap2010:ViewStateData Id="Throw_2" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="539.2,209.6" />
+      <sap2010:ViewStateData Id="Click_2" sap:VirtualizedContainerService.HintSize="539.2,107.2" />
+      <sap2010:ViewStateData Id="TypeInto_2" sap:VirtualizedContainerService.HintSize="539.2,135.2" />
+      <sap2010:ViewStateData Id="Click_9" sap:VirtualizedContainerService.HintSize="539.2,68.8" />
+      <sap2010:ViewStateData Id="UiElementExists_3" sap:VirtualizedContainerService.HintSize="539.2,107.2" />
+      <sap2010:ViewStateData Id="Click_8" sap:VirtualizedContainerService.HintSize="314.4,107.2" />
+      <sap2010:ViewStateData Id="Throw_3" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="539.2,256.8" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="561.6,2233.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="576,2380.8" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="598.4,2613.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OracleValidation_SubmitAutorateRequest_1" sap:VirtualizedContainerService.HintSize="638.4,2693.6" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

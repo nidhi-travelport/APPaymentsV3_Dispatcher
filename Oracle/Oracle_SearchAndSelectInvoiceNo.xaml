@@ -1,0 +1,292 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Oracle_SearchAndSelect" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_SearchAndSelectSelectorTitle" Type="InArgument(x:String)" />
+    <x:Property Name="in_SpecifyTypeInto" Type="InArgument(x:String)" />
+    <x:Property Name="in_Dropdown" Type="InArgument(x:String)" />
+    <x:Property Name="in_SearchAndSelectAaname" Type="InArgument(x:String)" />
+    <x:Property Name="in_SearchBySelectoraaname" Type="InArgument(x:String)" />
+    <x:Property Name="in_ElementExistsTimeout" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_DelayBetweenKeys" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_SearchAndSelectNumberOfRetries" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_SearchAndSelectRetryScope" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="in_ElementVanishTimeout" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_NoItemsFoundAaname" Type="InArgument(x:String)" />
+    <x:Property Name="in_SubmitPaymentProcessRequestSelectorTitle" Type="InArgument(x:String)" />
+    <x:Property Name="in_TimeoutShort" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_TimeoutMedium" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1284,3104</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Oracle_SearchAndSelect_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="29">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>Microsoft.Activities.Expressions</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="60">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>Microsoft.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="DESCRIPTION: Once the Search and Select window has been opened, specify the parameter Paygroup, Currency, Bank Account and Payment Document.&#xA;&#xA;PRE-CONDITION: The Search and Select window has been opened and is accessible to be interacted with.&#xA;&#xA;POST-ACTION: The parameters get specified and the Search And Select window is closed." DisplayName="Oracle_SearchAndSelect" sap:VirtualizedContainerService.HintSize="1294,3039" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="SearchAndSelectExists" />
+      <Variable x:TypeArguments="x:Boolean" Name="NoItemsFound" />
+      <Variable x:TypeArguments="x:Boolean" Name="SearchAndSelectClosed" />
+      <Variable x:TypeArguments="x:Boolean" Name="NoSearchConductedFound" />
+      <Variable x:TypeArguments="x:Boolean" Name="ConditonNoSearchConducted" />
+      <Variable x:TypeArguments="x:Boolean" Name="InvoiceNumberConfirmationExists" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Submit'" sap:VirtualizedContainerService.HintSize="1252,2860" sap2010:WorkflowViewState.IdRef="BrowserScope_5" InformativeScreenshot="deafd6debdc85f8057e10b512351bd1a" Selector="[&quot;&lt;html app='chrome.exe' title='&quot;+in_SubmitPaymentProcessRequestSelectorTitle+&quot;' /&gt;&quot;]" TimeoutMS="[in_TimeoutMedium]">
+      <ui:BrowserScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1218,2714" sap2010:WorkflowViewState.IdRef="Sequence_14">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If Condition="[in_Dropdown&lt;&gt;&quot;&quot;]" DisplayName="If drop down item is not empty" sap:VirtualizedContainerService.HintSize="1176,281" sap2010:WorkflowViewState.IdRef="If_5">
+              <If.Then>
+                <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item 'SELECT  categoryChoice'" sap:VirtualizedContainerService.HintSize="359,134" sap2010:WorkflowViewState.IdRef="SelectItem_3" Item="[in_Dropdown]">
+                  <ui:SelectItem.Items>
+                    <scg:List x:TypeArguments="x:String" Capacity="4">
+                      <x:String>Payment Method Code</x:String>
+                      <x:String>Payment Method Name</x:String>
+                    </scg:List>
+                  </ui:SelectItem.Items>
+                  <ui:SelectItem.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0f8757f9-8bc8-4a2b-85bb-6b0c3562056c" InformativeScreenshot="142017a257922094fb8701e10ea36f97" Selector="&lt;webctrl tag='SELECT' aaname='Search Category' /&gt;" TimeoutMS="[in_TimeoutShort]" WaitForReady="COMPLETE" />
+                  </ui:SelectItem.Target>
+                </ui:SelectItem>
+              </If.Then>
+            </If>
+            <ui:TypeInto DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" ClickBeforeTyping="True" DelayBetweenKeys="[in_DelayBetweenKeys]" DisplayName="Type Into 'Specify Textfield'" EmptyField="True" sap:VirtualizedContainerService.HintSize="1176,134" sap2010:WorkflowViewState.IdRef="TypeInto_4" Text="[in_SpecifyTypeInto.ToString+ &quot;[k(enter)]&quot;]">
+              <ui:TypeInto.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="44b9aeac-b9dc-4b0f-9c93-aaf4d2acc75d" InformativeScreenshot="eb6dfca739a09243b186927181988d7b" Selector="&lt;webctrl tag='INPUT' aaname='Search Term' type='text' /&gt;" TimeoutMS="[in_TimeoutShort]" WaitForReady="INTERACTIVE" />
+              </ui:TypeInto.Target>
+            </ui:TypeInto>
+            <ui:RetryScope ContinueOnError="True" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="1176,525" sap2010:WorkflowViewState.IdRef="RetryScope_3" NumberOfRetries="[in_SearchAndSelectNumberOfRetries]" RetryInterval="[in_SearchAndSelectRetryScope]">
+              <ui:RetryScope.ActivityBody>
+                <ActivityAction>
+                  <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="376,344" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Go'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_8" KeyModifiers="None" MouseButton="BTN_LEFT">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="07d9c8f7-e292-49c8-89fd-b58e2fece40d" InformativeScreenshot="06330c1aa1622d4e735fa58cd85e97a8" Selector="&lt;html app='chrome.exe' title='Payment Process Request: Selected Scheduled Payments' /&gt;&lt;webctrl tag='BUTTON' aaname='Go' /&gt;" TimeoutMS="[in_TimeoutShort]" WaitForReady="COMPLETE" />
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:UiElementExists DisplayName="Element Exists 'No Search Conducted'" Exists="[NoSearchConductedFound]" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="UiElementExists_9">
+                      <ui:UiElementExists.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7b9ee614-a2ab-4ee2-b9e6-4f91cd51396d" InformativeScreenshot="2d0d21df2018fdd9e9802352f8a33a0a" Selector="&lt;webctrl id='PsReadyToPayTable:Content' tag='TABLE' /&gt;&lt;webctrl tag='TD' aaname='No search conducted.' /&gt;" TimeoutMS="[in_ElementExistsTimeout]" WaitForReady="COMPLETE" />
+                      </ui:UiElementExists.Target>
+                    </ui:UiElementExists>
+                  </Sequence>
+                </ActivityAction>
+              </ui:RetryScope.ActivityBody>
+              <ui:RetryScope.Condition>
+                <ActivityFunc x:TypeArguments="x:Boolean">
+                  <p:IsFalse DisplayName="Is false (No search conducted)" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="IsFalse_3" Input="[NoSearchConductedFound]" Result="[ConditonNoSearchConducted]" />
+                </ActivityFunc>
+              </ui:RetryScope.Condition>
+            </ui:RetryScope>
+            <If Condition="[ConditonNoSearchConducted]" DisplayName="If No search conducted exists" sap:VirtualizedContainerService.HintSize="1176,207" sap2010:WorkflowViewState.IdRef="If_6">
+              <If.Else>
+                <Throw DisplayName="Throw System exception 'Press Go'" Exception="[new System.Exception(&quot;Search and Select: The bot was not able to search element from the column.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+              </If.Else>
+            </If>
+            <ui:UiElementExists DisplayName="Element Exists 'No Items Found'" Exists="[NoItemsFound]" sap:VirtualizedContainerService.HintSize="1176,106" sap2010:WorkflowViewState.IdRef="UiElementExists_6">
+              <ui:UiElementExists.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0452f0e4-c993-4601-b359-0b5f8dba5c20" InformativeScreenshot="15dff5ce5c183cf7c42fa3b17b489cb4" Selector="&lt;webctrl id='PsReadyToPayTable:Content' tag='TABLE' /&gt;&lt;webctrl tag='TD' aaname='No Items found' /&gt;" TimeoutMS="[in_ElementExistsTimeout]" WaitForReady="NONE" />
+              </ui:UiElementExists.Target>
+            </ui:UiElementExists>
+            <If Condition="[NoItemsFound]" DisplayName="If no items were found" sap:VirtualizedContainerService.HintSize="1176,1169" sap2010:WorkflowViewState.IdRef="If_7">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="376,329" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="NoItemsMessage" />
+                    <Variable x:TypeArguments="ui:Browser" Name="SearchAndSelectWindow" />
+                    <Variable x:TypeArguments="ui:Browser" Name="PPRWindow" />
+                    <Variable x:TypeArguments="x:String" Name="Parameter" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Close Search And Select'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="05fb2a3f-ff62-438e-9eca-2dbea4c89dc6" InformativeScreenshot="1641a3a18339c6aceb75a85686e9948d" Selector="&lt;webctrl id='closeAnchorlovPopUp_AddPs' tag='A' aaname='Close Popup' /&gt;" TimeoutMS="[in_TimeoutShort]" WaitForReady="COMPLETE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[&quot;Couldn't find Invoice Number : &quot;+in_SpecifyTypeInto.ToString]" />
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap:VirtualizedContainerService.HintSize="755,1022" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Check AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check 'SELECT'" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="Check_2">
+                    <ui:Check.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="943a8c07-e71b-46e4-ac61-7b2ac550ba8a" InformativeScreenshot="eea43764993c79c22206f0e4b2fff0b7" Selector="&lt;webctrl name='N1:selected:0' tag='INPUT' type='checkbox' aaname='Select' /&gt;" TimeoutMS="[in_TimeoutShort]" WaitForReady="COMPLETE" />
+                    </ui:Check.Target>
+                  </ui:Check>
+                  <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click 'Select' to complete specifying" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b42e2c9b-c0a4-4a73-ae16-3de042c334f5" InformativeScreenshot="cacba66529ae5c2303008c91bfa8b4b4" Selector="&lt;webctrl aaname='Select' tag='BUTTON' parentid='*LovRN*' /&gt;" TimeoutMS="[in_TimeoutShort]" WaitForReady="COMPLETE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:WaitUiElementVanish ContinueOnError="True" DisplayName="Wait Element Vanish" sap:VirtualizedContainerService.HintSize="713,68" sap2010:WorkflowViewState.IdRef="WaitUiElementVanish_3" WaitNotActive="False" WaitNotVisible="True">
+                    <ui:WaitUiElementVanish.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="131ed56e-303c-40f1-a2b6-e6b4747b6e24" Selector="[&quot;&lt;html htmlwindowname='lovWindow' title='&quot;+in_SearchAndSelectSelectorTitle+&quot;' /&gt;&quot;]" TimeoutMS="[in_ElementVanishTimeout]" WaitForReady="INTERACTIVE" />
+                    </ui:WaitUiElementVanish.Target>
+                  </ui:WaitUiElementVanish>
+                  <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="3000" DisplayName="Click 'BUTTON  Save'" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="Click_10" KeyModifiers="None" MouseButton="BTN_LEFT">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ae3c6854-f645-47f0-a109-18264fb5bed7" InformativeScreenshot="ad99f45405113a3289b52dc771e27350" Selector="&lt;webctrl id='Save' tag='BUTTON' aaname='Save: Alt + S' /&gt;" TimeoutMS="[in_TimeoutShort]" WaitForReady="COMPLETE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <ui:UiElementExists DisplayName="Element Exists 'Confirmation'" Exists="[InvoiceNumberConfirmationExists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_13">
+                    <ui:UiElementExists.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="a977fbb4-6a9e-4ec2-8fb4-071942f66a1e" InformativeScreenshot="e1ad4160b49a3cb65696c61d2a220d26" Selector="&lt;webctrl tag='H1' aaname='Confirmation' /&gt;" TimeoutMS="[in_ElementExistsTimeout]" WaitForReady="COMPLETE" />
+                    </ui:UiElementExists.Target>
+                  </ui:UiElementExists>
+                  <If Condition="[InvoiceNumberConfirmationExists]" DisplayName="If Confirmation Exists" sap:VirtualizedContainerService.HintSize="713,238" sap2010:WorkflowViewState.IdRef="If_9">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Then>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Added : &quot; +in_SpecifyTypeInto.ToString+&quot; added successfully&quot;]" />
+                    </If.Then>
+                    <If.Else>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Warn" Message="[&quot;Adding : &quot; +in_SpecifyTypeInto.ToString+&quot; unsuccessfull&quot;]" />
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:BrowserScope.Body>
+    </ui:BrowserScope>
+  </Sequence>
+</Activity>

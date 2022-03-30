@@ -1,0 +1,522 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ProcessTransaction" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="io_DailyLogDataTable" Type="InOutArgument(sd:DataTable)" />
+    <x:Property Name="in_DailyLogFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_CheckBatchStatusNoOfRetries" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_CheckBatchStatusRetryInterval" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="in_dtCRR" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_CRRTempPath" Type="InArgument(x:String)" />
+    <x:Property Name="out_InvoiceNoOracle" Type="OutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>723,1294</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="30">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Globalization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="62">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="DESCRIPTION: The sequence of steps in opening, producing and submitting the batch creation reports.&#xA;&#xA;PRE-CONDITION: The queue item indicates that a batch creation reports will be run.&#xA;&#xA;POST-ACTION: Batch Creation reports are submitted successfully." DisplayName="ProcessTransaction" sap:VirtualizedContainerService.HintSize="707,1229" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="BatchStatus" />
+      <Variable x:TypeArguments="x:String" Name="RequestID" />
+      <Variable x:TypeArguments="x:String" Name="RejectedPayments" />
+      <Variable x:TypeArguments="x:String" Name="ScheduledPayments" />
+      <Variable x:TypeArguments="x:Int32" Name="TotalPayments" />
+      <Variable x:TypeArguments="x:String" Name="ErrorBatchName" />
+      <Variable x:TypeArguments="x:String" Name="ErrorName" />
+      <Variable x:TypeArguments="x:String" Name="ErrorRequestID" />
+      <Variable x:TypeArguments="x:String" Name="ErrorStatus" />
+      <Variable x:TypeArguments="x:String" Name="TempRequestID" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="665,91" sap2010:WorkflowViewState.IdRef="LogMessage_26" Level="Info" Message="[&quot;Process State: Batch creation case has been chosen. Batch ID: &quot;+ in_TransactionItem.SpecificContent(&quot;Batch Name&quot;).ToString]" />
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Navigate To Payments Manager workflow" sap:VirtualizedContainerService.HintSize="665,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="OracleJava\OracleJava_NavigateToPaymentsManager.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_NavigateToPaymentsManagerHotkey">[in_Config("OpenFormFunction_Hotkey").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_NavigateToPaymentsManagerTypeInto">[in_Config("NavigateToPaymentsManager_TypeInto").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelector">[in_Config("OracleJavaSelectorTitle").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PaymentsManagerSelector">[in_Config("SwitchResponsibilitySelectorTitle").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_OpenFormFunctionNumberOfRetries">[Convert.ToInt32(in_Config("OpenFormFunctions_NumberOfRetries").ToString)]</InArgument>
+        <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_OpenFormFunctionRetryInterval">[TimeSpan.ParseExact(in_Config("OpenFormFunctions_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PaymentsDashboardSelector">[in_Config("PaymentsDashboard_SelectorTitle").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_FormFunctionsSelector">[in_Config("FormFunctionSelector_Name").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PaymentsDashboardSelectorTitle">[in_Config("PaymentsDashboard_SelectorTitle").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PaymentProcessRequestsSelectorTitle">[in_Config("PaymentsProcessRequest_SelectorTitle").ToString]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="665,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Process State: Navigated to Payments Manager in Oracle successfully&quot;]" />
+    <Flowchart DisplayName="Flow Switch - If Batch already exists or need to be created" sap:VirtualizedContainerService.HintSize="665,636" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+          <av:Size x:Key="ShapeSize">60,75</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,144.02</av:PointCollection>
+          <x:Double x:Key="Width">631</x:Double>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Flowchart.StartNode>
+        <x:Reference>__ReferenceID3</x:Reference>
+      </Flowchart.StartNode>
+      <FlowSwitch x:TypeArguments="x:String" x:Name="__ReferenceID1" DisplayName="Flow Switch" Expression="[BatchStatus]" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowSwitch`1_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">264.8,260.5</av:Point>
+            <av:Size x:Key="ShapeSize">70,87</av:Size>
+            <av:PointCollection x:Key="Batch ExistsConnector">334.8,304 364.8,304 364.8,410 380,410</av:PointCollection>
+            <av:PointCollection x:Key="New BatchConnector">264.8,304 234.8,304 234.8,411.12 214.8,411.12</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <FlowStep x:Key="New Batch" x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">14.8,378.12</av:Point>
+              <av:Size x:Key="ShapeSize">200,66</av:Size>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Create a new batch" sap:VirtualizedContainerService.HintSize="421,2316" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Process State: Bot has navigated to Payments Manager in Oracle successfully.&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Navigate To And Populate Process Request workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_NavigateToAndPopulateProcessRequest.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_RequestName">[in_TransactionItem.SpecificContent("Batch Name").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Template">[in_Config("TemplateName").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PayThroughDate">[in_TransactionItem.SpecificContent("Paythrough Date").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentMethod">[in_TransactionItem.SpecificContent("Payment Type").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentsDashboardSelectorTitle">[in_Config("PaymentsDashboard_SelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentProcessRequestsSelectorTitle">[in_Config("PaymentsProcessRequest_SelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitPaymentProcessRequestSelectorTitle">[in_Config("SubmitPaymentProcessRequest_SelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitSingleRequestaaname">[in_Config("SubmitSingleRequest_aaname").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_DelayBefore">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TypeIntoDelay">[Convert.ToInt32(in_Config("TypeInto_Delay").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_SearchAndSelectNoOfRetries">[Convert.ToInt32(in_Config("SearchAndSelect_NumberOfRetires").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_SearchAndSelectRetryInterval">[TimeSpan.ParseExact(in_Config("SearchAndSelect_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Process State: Navigated to and populated process request fields successfully.&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Specify Parameters workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_SpecifyParameters.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitPaymentProcessRequestSelectorTitle">[in_Config("SubmitPaymentProcessRequest_SelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                <InArgument x:TypeArguments="ui:QueueItem" x:Key="in_TransactionItem">[in_TransactionItem]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentAttributesaaname">[in_Config("PaymentAttributes_aaname").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentProcessRequestSelectorTitle">[in_Config("PaymentsProcessRequest_SelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_BatchConfirmaaname">[in_Config("BatchConfirmation_aaname").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentDate">[in_TransactionItem.SpecificContent("Payment Date").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_AllCurrency">[in_Config("SpecifyCurrency_AllCurrency").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentAttributeIDSelector">[in_Config("PaymentAttributes_parentID").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentAttributeTabSelectorCheck">[in_Config("PaymentAttributeDisbursementAccount_aaname").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_SearchAndSelectNoOfRetries">[Convert.ToInt32(in_Config("SearchAndSelect_NumberOfRetires").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_SearchAndSelectRetryInterval">[TimeSpan.ParseExact(in_Config("SearchAndSelect_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SearchAndSelectSelectorTitle">[in_Config("SearchAndSelect_SelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SearchAndSelectAaname">[in_Config("SearchAndSelectElementExistsAaname").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TypeIntoDelay">[Convert.ToInt32(in_Config("TypeInto_Delay").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutSearchAndSelectText">[Convert.ToInt32(in_Config("TimeoutSearchAndSelectText").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_AllPayGroup">[in_Config("SpecifyPayGroup_AllPayGroup").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">[Convert.ToInt32(in_Config("TimeoutMedium").ToString)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Process State: Parameters have been specified and process batch has been submitted successfully&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Check Batch Submission Status workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_CheckBatchSubmissionStatus.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_BatchName">[in_TransactionItem.SpecificContent("Batch Name").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_NewBatchStatus">[in_Config("BatchStatus_New").ToString]</InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PaymentProcessRequestSelectorTitle">[in_Config("PaymentsProcessRequest_SelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_CheckBatchStatusNoOfRetries">[Convert.ToInt32(in_Config("CheckBatchStatus_NumberOfRetries").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_CheckBatchStatusRetryInterval">[TimeSpan.ParseExact(in_Config("CheckBatchStatus_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_BatchStatus">[BatchStatus]</OutArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_NoResultFoundStatus">[in_Config("BatchStatus_NotFound").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ConfirmedBatchStatus">[in_Config("BatchStatus_Confirmed").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelectorTitle">[in_Config("OracleJavaSelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_NoSearchConductedStatus">[in_Config("NoSearchConductedStatus").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ClickGoNoOfRetries">[Convert.ToInt32(in_Config("OpenFormFunctions_NumberOfRetries").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_ClickGoRetryInterval">[TimeSpan.ParseExact(in_Config("OpenFormFunctions_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_PaymentProcessRequestColumnNumber">[Convert.ToInt32(in_Config("PaymentProcessColumnNumber").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_BatchNameColumnNumber">[Convert.ToInt32(in_Config("PaymentProcessBatchNameColumnNumber").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">[Convert.ToInt32(in_Config("TimeoutMedium").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_InvoiceNoOracle">[out_InvoiceNoOracle]</OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;Process State: Batch submission status checked and there are payments in this batch.&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Oracle_AddRemoveInvoiceNumber workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_38" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_AddRemoveInvoiceNumber.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_InvoiceNumberStr">[in_TransactionItem.SpecificContent("Invoice No").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_SearchAndSelectNoOfRetries">[Convert.ToInt32(in_Config("SearchAndSelect_NumberOfRetires").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_SearchAndSelectRetryInterval">[TimeSpan.ParseExact(in_Config("SearchAndSelect_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitPaymentProcessRequestSelectorTitle">Payment Process Request: Selected Scheduled Payments</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_DelayShort">[Convert.ToInt32(in_Config("DelayShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">[Convert.ToInt32(in_Config("TimeoutMedium").ToString)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_27" Level="Info" Message="[&quot;Process State: Added and Removed Invoices Successfully.&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Oracle_InvoiceNumberValidationLog workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_39" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_InvoiceNumberValidationLog.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_InvoiceNumberStr">[in_TransactionItem.SpecificContent("Invoice No").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_SearchAndSelectNoOfRetries">[Convert.ToInt32(in_Config("SearchAndSelect_NumberOfRetires").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_SearchAndSelectRetryInterval">[TimeSpan.ParseExact(in_Config("SearchAndSelect_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitPaymentProcessRequestSelectorTitle">Payment Process Request: Selected Scheduled Payments</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">[Convert.ToInt32(in_Config("TimeoutMedium").ToString)]</InArgument>
+                <InArgument x:TypeArguments="sd:DataTable" x:Key="in_DtCRR">[in_dtCRR]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_CRRInvoiceNoHeader">[in_Config("CRRInvoiceNoHeader").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_CRRTempPath">[in_CRRTempPath]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_InvoicePendingReviewReason">[in_Config("InvoicePendingReviewReason").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_APInputRequiredReason">[in_Config("APInputRequiredReason").ToString]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_28" Level="Info" Message="[&quot;Process State: Added Invoices Validation Successful&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke OracleJava_SubmitRequest workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_40" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="OracleJava\OracleJava_SubmitRequest.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelectorTitle">[in_Config("OracleJavaSelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitRequestName">[in_Config("SubmitRequest_Name").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PayGroup">[in_TransactionItem.SpecificContent("Pay Group").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_29" Level="Info" Message="[&quot;Process State: New Request Submitted&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke OracleJava_CheckPhaseStatusComplete workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_41" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="OracleJava\OracleJava_CheckPhaseStatus&amp;SaveReport.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelectorTitle">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;OracleJavaSelectorTitle&quot;).ToString" />
+                </InArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_PhaseStatus" />
+                <InArgument x:TypeArguments="x:String" x:Key="in_OutputFilePath">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;General_BotOutputFolder&quot;).ToString+in_Config(&quot;APOutputFilePath&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Entity">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem.SpecificContent(&quot;Entity&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OutputFileName">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;APFileName&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">
+                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="Convert.ToInt32(in_Config(&quot;TimeoutShort&quot;).ToString)" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">
+                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="Convert.ToInt32(in_Config(&quot;TimeoutMedium&quot;).ToString)" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Paygroup">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem.SpecificContent(&quot;Pay Group&quot;).ToString" />
+                </InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_44" Level="Info" Message="[&quot;Process State: Closing Submit Request Window&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke OracleJava_CloseSubmitRequest workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_56" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="OracleJava\OracleJava_CloseSubmitRequest.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelectorTitle">[in_Config("OracleJavaSelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+          </Sequence>
+        </FlowStep>
+        <FlowStep x:Key="Batch Exists" x:Name="__ReferenceID2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">380,377</av:Point>
+              <av:Size x:Key="ShapeSize">200,66</av:Size>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Existing Batch - Invoice Pending Review" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_19">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe Payment'" sap:VirtualizedContainerService.HintSize="379,51" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="16b5968fb246211e0bdd4a03373e4805" Selector="&lt;html app='chrome.exe' title='Payment Process Requests' /&gt;">
+              <ui:BrowserScope.Body>
+                <ActivityAction x:TypeArguments="x:Object">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="526,802" sap2010:WorkflowViewState.IdRef="Sequence_27">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:Boolean" Name="SSPWindowExists" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:RetryScope DisplayName="Retry Scope Start Action" sap:VirtualizedContainerService.HintSize="484,463" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[in_CheckBatchStatusNoOfRetries]" RetryInterval="[in_CheckBatchStatusRetryInterval]">
+                      <ui:RetryScope.ActivityBody>
+                        <ActivityAction>
+                          <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="376,198" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Take Action'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT">
+                              <ui:Click.CursorPosition>
+                                <ui:CursorPosition Position="Center">
+                                  <ui:CursorPosition.OffsetX>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetX>
+                                  <ui:CursorPosition.OffsetY>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:CursorPosition.OffsetY>
+                                </ui:CursorPosition>
+                              </ui:Click.CursorPosition>
+                              <ui:Click.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ba71600c-c627-4722-bf7b-f42548d06b7c" InformativeScreenshot="6a34a1b9cd27955645beb2fba8808d78" Selector="&lt;webctrl parentid='ResultsTable:TakeActionEnabled:0' tag='IMG' aaname='Take Action' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:Click.Target>
+                            </ui:Click>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:RetryScope.ActivityBody>
+                      <ui:RetryScope.Condition>
+                        <ActivityFunc x:TypeArguments="x:Boolean">
+                          <ui:UiElementExists DisplayName="Element Exists 'Selected Scheduled Payments'" Exists="[SSPWindowExists]" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                            <ui:UiElementExists.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fb8007b0-7959-4a2a-a360-b8211dde42f2" InformativeScreenshot="8390f95a28c08bde107dcd9a59b1d63e" Selector="&lt;html app='chrome.exe' title='Payment Process Request: Selected Scheduled Payments' /&gt;&lt;webctrl tag='H1' aaname='Payment Process Request: Selected Scheduled Payments' /&gt;">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
+                                <ui:Target.WaitForReady>
+                                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                                </ui:Target.WaitForReady>
+                              </ui:Target>
+                            </ui:UiElementExists.Target>
+                          </ui:UiElementExists>
+                        </ActivityFunc>
+                      </ui:RetryScope.Condition>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:RetryScope>
+                    <If Condition="[SSPWindowExists]" DisplayName="Payment Process Request: Selected Scheduled Payments Window Exists" sap:VirtualizedContainerService.HintSize="484,207" sap2010:WorkflowViewState.IdRef="If_4">
+                      <If.Else>
+                        <Throw DisplayName="Throw System Exception" Exception="[New SystemException(&quot;Couln't load browser title - Payment Process Request: Selected Scheduled Payments&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </ActivityAction>
+              </ui:BrowserScope.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:BrowserScope>
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Oracle_AddRemoveInvoiceNumber workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_52" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_AddRemoveInvoiceNumber.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_InvoiceNumberStr">[in_TransactionItem.SpecificContent("Invoice No").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_SearchAndSelectNoOfRetries">[Convert.ToInt32(in_Config("SearchAndSelect_NumberOfRetires").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_SearchAndSelectRetryInterval">[TimeSpan.ParseExact(in_Config("SearchAndSelect_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitPaymentProcessRequestSelectorTitle">Payment Process Request: Selected Scheduled Payments</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_DelayShort">[Convert.ToInt32(in_Config("DelayShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">[Convert.ToInt32(in_Config("TimeoutMedium").ToString)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_39" Level="Info" Message="[&quot;Process State: Added and Removed Invoices Successfully.&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Oracle_InvoiceNumberValidationLog workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_53" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_InvoiceNumberValidationLog.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_InvoiceNumberStr">[in_TransactionItem.SpecificContent("Invoice No").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_SearchAndSelectNoOfRetries">[Convert.ToInt32(in_Config("SearchAndSelect_NumberOfRetires").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_SearchAndSelectRetryInterval">[TimeSpan.ParseExact(in_Config("SearchAndSelect_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitPaymentProcessRequestSelectorTitle">Payment Process Request: Selected Scheduled Payments</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">[Convert.ToInt32(in_Config("TimeoutMedium").ToString)]</InArgument>
+                <InArgument x:TypeArguments="sd:DataTable" x:Key="in_DtCRR">[in_dtCRR]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_CRRInvoiceNoHeader">[in_Config("CRRInvoiceNoHeader").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_CRRTempPath">[in_CRRTempPath]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_InvoicePendingReviewReason">[in_Config("InvoicePendingReviewReason").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_APInputRequiredReason">[in_Config("APInputRequiredReason").ToString]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_40" Level="Info" Message="[&quot;Process State: Added Invoices Validation Successful&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke OracleJava_SubmitRequest workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_54" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="OracleJava\OracleJava_SubmitRequest.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelectorTitle">[in_Config("OracleJavaSelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_SubmitRequestName">[in_Config("SubmitRequest_Name").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PayGroup">[in_TransactionItem.SpecificContent("Pay Group").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_43" Level="Info" Message="[&quot;Process State: New Request Submitted&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke OracleJava_CheckPhaseStatusComplete workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_55" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="OracleJava\OracleJava_CheckPhaseStatus&amp;SaveReport.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelectorTitle">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;OracleJavaSelectorTitle&quot;).ToString" />
+                </InArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_PhaseStatus" />
+                <InArgument x:TypeArguments="x:String" x:Key="in_OutputFilePath">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;General_BotOutputFolder&quot;).ToString+in_Config(&quot;APOutputFilePath&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Entity">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem.SpecificContent(&quot;Entity&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OutputFileName">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;APFileName&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">
+                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="Convert.ToInt32(in_Config(&quot;TimeoutShort&quot;).ToString)" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">
+                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="Convert.ToInt32(in_Config(&quot;TimeoutMedium&quot;).ToString)" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Paygroup">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem.SpecificContent(&quot;Pay Group&quot;).ToString" />
+                </InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="379,91" sap2010:WorkflowViewState.IdRef="LogMessage_45" Level="Info" Message="[&quot;Process State: Closing Submit Request Window&quot;]" />
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke OracleJava_CloseSubmitRequest workflow" sap:VirtualizedContainerService.HintSize="379,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_57" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="OracleJava\OracleJava_CloseSubmitRequest.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_OracleJavaSelectorTitle">[in_Config("OracleJavaSelectorTitle").ToString]</InArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_ElementExistsTimeout">[Convert.ToInt32(in_Config("ElementExistsTimeout").ToString)]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+          </Sequence>
+        </FlowStep>
+      </FlowSwitch>
+      <x:Reference>__ReferenceID0</x:Reference>
+      <FlowStep x:Name="__ReferenceID3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,144.02</av:Point>
+            <av:Size x:Key="ShapeSize">200,51</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,195.02 300,225.02 299.8,225.02 299.8,260.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Oracle_CheckBatchExists workflow" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_42" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Oracle\Oracle_CheckBatchExists.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="in_BatchName">[in_TransactionItem.SpecificContent("Batch Name").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_PaymentProcessRequestSelector">[in_Config("PaymentsProcessRequest_SelectorTitle").ToString]</InArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_PaymentStatus">[BatchStatus]</OutArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_StatusColumnNumber">[Convert.ToInt32(in_Config("PaymentProcessColumnNumber").ToString)]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_BatchNameColumnNumber">[Convert.ToInt32(in_Config("PaymentProcessBatchNameColumnNumber").ToString)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_BatchCancelledStatus">[in_Config("BatchStatus_Cancelled").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_NewBatch">[in_Config("BatchCreationNew").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_BatchConfirmedStatus">[in_Config("BatchStatus_Confirmed").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_DelayBetweenKeys">[Convert.ToInt32(in_Config("CheckBatchExists_TypeInto_Delay").ToString)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_NoSearchConductedStatus">[in_Config("NoSearchConductedStatus").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_ClickGoNoOfRetries">[Convert.ToInt32(in_Config("CheckBatchStatus_NumberOfRetries").ToString)]</InArgument>
+            <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_ClickGoRetryInterval">[TimeSpan.ParseExact(in_Config("CheckBatchStatus_RetryInterval").ToString,in_Config("IntervalFormat").ToString,System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutShort">[Convert.ToInt32(in_Config("TimeoutShort").ToString)]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_TimeoutMedium">[Convert.ToInt32(in_Config("TimeoutMedium").ToString)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_NoResultFoundStatus">[in_Config("PaymentProcessNoBatchFoundStatus").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_InvoicePendingReview">[in_Config("InvoicePendingReviewStatus").ToString]</InArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_InvoiceNoOracle">[out_InvoiceNoOracle]</OutArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:InvokeWorkflowFile>
+        <FlowStep.Next>
+          <x:Reference>__ReferenceID1</x:Reference>
+        </FlowStep.Next>
+      </FlowStep>
+      <x:Reference>__ReferenceID2</x:Reference>
+    </Flowchart>
+  </Sequence>
+</Activity>
